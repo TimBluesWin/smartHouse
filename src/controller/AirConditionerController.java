@@ -1,26 +1,25 @@
 package controller;
 
 public class AirConditionerController {
-	TemperatureSensor ts;
+	//TemperatureSensor ts;
 	int temperature;
 	
 	public AirConditionerController(int temperature)
 	{
-		ts = new TemperatureSensor();
 		this.temperature = temperature;
 	}
 	
-	public double setTemperature()
+	public String setTemperature(int temperature)
 	{
-		String setting = "";
-		if(ts.getTemperature() > 30)
+		String settings = "";
+		if(temperature > 30)
 		{
-			temperature = 24;
+			settings = "Making the wind from air conditioner weaker.";
 		}
-		else if(ts.getTemperature() < 21)
+		else if(temperature < 21)
 		{
-			temperature = 24;
+			settings = "Making the wind from air conditioner stronger.";
 		}
-		return temperature;
+		return settings;
 	}
 }
