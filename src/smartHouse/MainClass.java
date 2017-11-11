@@ -1,8 +1,11 @@
 package smartHouse;
 
+import controller.AirConditionerController;
+
 public class MainClass {
 	public static void main(String[] args)
 	{
-		System.out.println("Hello World");
+		AirConditionerController acc = new AirConditionerController(24);
+		System.out.println(acc.setTemperature(100));
 	}
 }
