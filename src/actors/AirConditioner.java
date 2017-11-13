@@ -1,9 +1,9 @@
 package actors;
 
 public class AirConditioner {
-	int currentTemperature;
+	double currentTemperature;
 	
-	public void setACTemperature(int temperature)
+	public void setACTemperature(double temperature)
 	{
 		currentTemperature = temperature;
 		System.out.println("Current Temperature is " + currentTemperature);
