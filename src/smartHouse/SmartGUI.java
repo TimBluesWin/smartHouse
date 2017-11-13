@@ -146,9 +146,10 @@ public class SmartGUI extends Frame {
 			int randomModifier = rng.nextInt(max + 1 -min) + min;
 			currentWindSpeed = wind.getValue();
 			currentWindSpeed += randomModifier;
-			System.out.println(currentWindSpeed);
+			//System.out.println(currentWindSpeed);
 			wind.setValue(currentWindSpeed);
-			alarm.setAlarm(alCont.setAlarm(wind.getValue()));
+			currentWindSpeed = windSensor.setWindSpeed(currentWindSpeed);
+			alarm.setAlarm(alCont.setAlarm(currentWindSpeed));
 			blinds.closedBlinds(bCont.setBlinds(wind.getValue()));
 			try {
 				Thread.sleep(1000);
