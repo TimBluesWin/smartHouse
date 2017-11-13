@@ -103,7 +103,19 @@ public class SmartGUI extends Frame {
 		 panel.add(result);
 		 frame.add(panel);
 		 frame.setVisible(true);
-		 temper.addChangeListener(new TemperatureListener());
+		 temper.addChangeListener(new ChangeListener() {
+					public void stateChanged(ChangeEvent e) {
+							// TODO Auto-generated method stub
+								int currentTemperature;
+								JSlider temper = (JSlider) e.getSource();
+								
+								temperature = temper.getValue();
+								currentTemperature = thermometer.setTemperature(temperature);
+								String announcement = AC.setACTemperature(ACCont.setTemperature(currentTemperature));
+								result.append(announcement + "\n");
+								//temper
+						}
+		 });
 	}
 	
 	public static void main (String[] args){
@@ -111,17 +123,6 @@ public class SmartGUI extends Frame {
 		SmartGUI app = new SmartGUI();
 	}
 	
-	
-	class TemperatureListener implements ChangeListener {
-		public void stateChanged(ChangeEvent e) {
-				// TODO Auto-generated method stub
-					int currentTemperature;
-					JSlider temper = (JSlider) e.getSource();
-					temperature = temper.getValue();
-					currentTemperature = thermometer.setTemperature(temperature);
-					AC.setACTemperature(ACCont.setTemperature(currentTemperature));
-					//temper
-			}
-	    }
+
 		
 }
