@@ -1,13 +1,37 @@
 package smartHouse;
 
+import actors.AirConditioner;
+import actors.Alarm;
+import actors.Blinds;
 import controllers.AirConditionerController;
+import controllers.AlarmController;
+import controllers.BlindsController;
+import sensor.Clock;
+import sensor.Thermometer;
+import sensor.WindSensor;
 
 public class MainClass {
 	public static void main(String[] args)
 	{
-		AirConditionerController acc = new AirConditionerController(24);
-		System.out.println("Temperature is now " + acc.setTemperature(100));
-		System.out.println("Temperature is now " + acc.setTemperature(15));
-		System.out.println("Temperature is now " + acc.setTemperature(22));
+		int time, temperature, windSpeed;
+		
+		Clock clock = new Clock();
+		Thermometer thermometer = new Thermometer();
+		WindSensor windSensor = new WindSensor();
+		AirConditionerController ACCont = new AirConditionerController();
+		AlarmController alCont = new AlarmController();
+		BlindsController bCont = new BlindsController();
+		AirConditioner AC = new AirConditioner();
+		Alarm alarm = new Alarm();
+		Blinds blinds = new Blinds();
+		
+		time = clock.setTime(1300);
+		temperature = thermometer.setTemperature(32);
+		windSpeed = windSensor.setWindSpeed(100);
+		
+		AC.setACTemperature(ACCont.setTemperature(temperature));
+		alarm.setAlarm(alCont.setAlarm(windSpeed));
+		blinds.closedBlinds(bCont.setBlinds(windSpeed));
+		
 	}
 }
