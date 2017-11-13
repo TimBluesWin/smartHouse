@@ -17,7 +17,7 @@ public class BlindsController {
 			settings = "Opening blinds";
 			closedBlinds = false;
 		}
-		
+		System.out.println(settings);
 		return closedBlinds;
 	}
 }

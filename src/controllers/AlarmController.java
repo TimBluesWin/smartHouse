@@ -17,7 +17,7 @@ public class AlarmController {
 			settings = "Turning off alarm";
 			alarm = false;
 		}
-		
+		System.out.println(settings);
 		return alarm;
 	}
 }
