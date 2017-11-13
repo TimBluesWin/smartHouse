@@ -8,7 +8,7 @@ public class AlarmController {
 		this.alarm = alarm;
 	}
 	
-	public boolean setBlinds(double windSpeed)
+	public boolean setAlarm(double windSpeed)
 	{
 		String settings = "";
 		boolean alarm = false;
