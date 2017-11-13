@@ -22,8 +22,8 @@ public class SmartGUI extends Frame {
 	
 	public int temperature;
 	public int windSpeed;
-	public String [] hour = new String[24];
-	public String [] minute = new String[60];
+	//public String [] hour = new String[24];
+	//public String [] minute = new String[60];
 	public int time;
 	static Clock clock = new Clock();
 	static Thermometer thermometer = new Thermometer();
@@ -44,10 +44,11 @@ public class SmartGUI extends Frame {
 	static Label minuteLabel;
 	static JSlider temper;
 	static JSlider wind;
-	static JComboBox hourList;
-	static JComboBox minuteList;
+	static JTextField hourList;
+	static JTextField minuteList;
 	static JTextArea result;
 	static Random rng = new Random();
+	static Random rng2 = new Random();
 	
 	
 	public SmartGUI(){
@@ -86,21 +87,13 @@ public class SmartGUI extends Frame {
 		    wind.setPaintLabels(true);
 		    wind.setFont(font);
 		    wind.setEnabled(false);
-		    for (int i=0; i<24; i++)
-			{
-				hour[i]=Integer.toString(i);
-			}
 		    
-		    for (int i=0; i<59; i++)
-			{
-				minute [i]=Integer.toString(i);
-			}
-		    
-		 hourList = new JComboBox(hour);
+		 hourList = new JTextField("18");
 		 //frame.add(hourList);
-		 minuteList = new JComboBox(minute);
+		 minuteList = new JTextField("45");
 		 //frame.add(minuteList);
-		 
+		 hourList.setEditable(false);
+		 minuteList.setEditable(false);
 		 result = new JTextArea(15, 40);
 		 result.setEditable(false);
 		 result.setLineWrap(true);
@@ -141,17 +134,53 @@ public class SmartGUI extends Frame {
 		SmartGUI app = new SmartGUI();
 		int max = 3;
 		int min = -3;
-		int currentWindSpeed, currentTemperature;
+		int currentWindSpeed, currentTemperature, currentHour, currentMinute;
+		int maxHour = 24;
+		int maxMinute = 59;
 		while(true)
 		{
 			int randomModifier = rng.nextInt(max + 1 -min) + min;
+			int tempRandomModifier = rng2.nextInt(max + 1 - min) + min;
 			currentWindSpeed = wind.getValue();
 			currentWindSpeed += randomModifier;
+			currentTemperature = temper.getValue();
+			currentTemperature += tempRandomModifier;
+			currentHour = Integer.parseInt(hourList.getText());
+			currentMinute = Integer.parseInt(minuteList.getText());
+			if(currentMinute + 1 > maxMinute)
+			{
+				if(currentHour + 1 > maxHour)
+				{
+					currentHour = 0;
+					currentMinute = 0;
+				}
+				else
+				{
+				currentHour += 1;
+				currentMinute = 0;
+				}
+			}
+			else
+			{
+				currentMinute += 1;
+			}
+			if(currentMinute < 10)
+			{
+				minuteList.setText("0" + Integer.toString(currentMinute));
+			}
+			else
+			{
+				minuteList.setText(Integer.toString(currentMinute));
+			}
+			hourList.setText(Integer.toString(currentHour));
 			//System.out.println(currentWindSpeed);
 			wind.setValue(currentWindSpeed);
+			temper.setValue(currentTemperature);
 			currentWindSpeed = windSensor.setWindSpeed(currentWindSpeed);
+			currentTemperature = thermometer.setTemperature(currentTemperature);
 			alarm.setAlarm(alCont.setAlarm(currentWindSpeed));
-			blinds.closedBlinds(bCont.setBlinds(wind.getValue()));
+			blinds.closedBlinds(bCont.setBlinds(currentWindSpeed));
+			AC.setACTemperature(ACCont.setTemperature(currentTemperature));
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
