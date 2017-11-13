@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 
 public class AlarmController {
 	boolean alarm = false;

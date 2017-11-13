@@ -1,6 +1,6 @@
 package smartHouse;
 
-import controller.AirConditionerController;
+import controllers.AirConditionerController;
 
 public class MainClass {
 	public static void main(String[] args)
