@@ -1,12 +1,7 @@
 package controllers;
 
 public class AlarmController {
-	boolean alarm = false;
-	
-	public AlarmController(boolean alarm)
-	{
-		this.alarm = alarm;
-	}
+
 	
 	public boolean setAlarm(double windSpeed)
 	{

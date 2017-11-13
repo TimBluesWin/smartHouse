@@ -1,12 +1,7 @@
 package controllers;
 
 public class BlindsController {
-	double windSpeed;
-	
-	public BlindsController(double windSpeed)
-	{
-		this.windSpeed = windSpeed;
-	}
+
 	
 	public boolean setBlinds(double windSpeed)
 	{

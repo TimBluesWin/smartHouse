@@ -1,13 +1,6 @@
 package controllers;
 
 public class AirConditionerController {
-	//TemperatureSensor ts;
-	int temperature;
-	
-	public AirConditionerController(int temperature)
-	{
-		this.temperature = temperature;
-	}
 	
 	public int setTemperature(int temperature)
 	{
