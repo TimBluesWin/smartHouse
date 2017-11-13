@@ -13,8 +13,8 @@ import sensor.WindSensor;
 public class MainClass {
 	public static void main(String[] args)
 	{
-		int time, windSpeed;
-		double temperature;
+		int time, windSpeed; 
+		int temperature;
 		
 		Clock clock = new Clock();
 		Thermometer thermometer = new Thermometer();
