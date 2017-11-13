@@ -69,15 +69,16 @@ public class SmartGUI extends Frame {
 		 
 		 Font font = new Font("Serif", Font.ITALIC, 15);
 		 
-		 temper = new JSlider(JSlider.HORIZONTAL,0,100, 24);
+		 temper = new JSlider(JSlider.HORIZONTAL,0,100, 35);
 		 
 		 	temper.setMinorTickSpacing(2);
 		    temper.setMajorTickSpacing(10);
 		    temper.setPaintTicks(true);
 		    temper.setPaintLabels(true);
 		    temper.setFont(font);
+		    temper.setEnabled(false);
 		    
-		 wind = new JSlider(JSlider.HORIZONTAL,0,100, 50);
+		 wind = new JSlider(JSlider.HORIZONTAL,0,100, 65);
 			 
 		 	wind.setMinorTickSpacing(2);
 		    wind.setMajorTickSpacing(10);
