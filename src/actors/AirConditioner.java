@@ -3,9 +3,11 @@ package actors;
 public class AirConditioner {
 	double currentTemperature;
 	
-	public void setACTemperature(double temperature)
+	public String setACTemperature(double temperature)
 	{
 		currentTemperature = temperature;
-		System.out.println("Current Temperature is " + currentTemperature);
+		String announcement = "Air Conditioner: Current Temperature is " + currentTemperature;
+		System.out.println(announcement);
+		return announcement;
 	}
 }
