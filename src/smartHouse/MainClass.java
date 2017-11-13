@@ -13,12 +13,13 @@ import sensor.WindSensor;
 public class MainClass {
 	public static void main(String[] args)
 	{
-		int time, temperature, windSpeed;
+		int time, windSpeed;
+		double temperature;
 		
 		Clock clock = new Clock();
 		Thermometer thermometer = new Thermometer();
 		WindSensor windSensor = new WindSensor();
-		AirConditionerController ACCont = new AirConditionerController();
+		AirConditionerController ACCont = new AirConditionerController(18);
 		AlarmController alCont = new AlarmController();
 		BlindsController bCont = new BlindsController();
 		AirConditioner AC = new AirConditioner();
