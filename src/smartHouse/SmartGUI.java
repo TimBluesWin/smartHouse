@@ -2,6 +2,8 @@ package smartHouse;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -23,38 +25,51 @@ public class SmartGUI extends Frame {
 	public String [] hour = new String[24];
 	public String [] minute = new String[60];
 	public int time;
-	Clock clock = new Clock();
-	Thermometer thermometer = new Thermometer();
-	WindSensor windSensor = new WindSensor();
-	AirConditionerController ACCont = new AirConditionerController(18);
-	AlarmController alCont = new AlarmController();
-	BlindsController bCont = new BlindsController();
-	AirConditioner AC = new AirConditioner();
-	Alarm alarm = new Alarm();
-	Blinds blinds = new Blinds();
-	
+	static Clock clock = new Clock();
+	static Thermometer thermometer = new Thermometer();
+	static WindSensor windSensor = new WindSensor();
+	static AirConditionerController ACCont = new AirConditionerController(18);
+	static AlarmController alCont = new AlarmController();
+	static BlindsController bCont = new BlindsController();
+	static AirConditioner AC = new AirConditioner();
+	static Alarm alarm = new Alarm();
+	static Blinds blinds = new Blinds();
+	static JFrame frame;
+	static JPanel panel;
+	static Label tempLabel;
+	static Label windLabel;
+	static Label timeLabel;
+	static Label resultLabel;
+	static Label hourLabel;
+	static Label minuteLabel;
+	static JSlider temper;
+	static JSlider wind;
+	static JComboBox hourList;
+	static JComboBox minuteList;
+	static JTextArea result;
+	static Random rng = new Random();
 	
 	
 	public SmartGUI(){
 		
 		//setLayout(new BorderLayout());
-		JFrame frame = new JFrame("smartGUI");
-		JPanel panel = new JPanel();
+		frame = new JFrame("smartGUI");
+		panel = new JPanel();
 		//Container c = frame.getContentPane();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(600, 400);
 		
-		 Label tempLabel = new Label("temperature");
-		 Label windLabel = new Label("wind speed");
-		 Label timeLabel = new Label ("time");
-		 Label resultLabel = new Label ("results");
-		 Label hourLabel = new Label("hour");
-		 Label minuteLabel = new Label("minute");
+		 tempLabel = new Label("temperature");
+		 windLabel = new Label("wind speed");
+		 timeLabel = new Label ("time");
+		 resultLabel = new Label ("results");
+		 hourLabel = new Label("hour");
+		 minuteLabel = new Label("minute");
 		 
 		 
 		 Font font = new Font("Serif", Font.ITALIC, 15);
 		 
-		 JSlider temper = new JSlider(JSlider.HORIZONTAL,0,100, 24);
+		 temper = new JSlider(JSlider.HORIZONTAL,0,100, 24);
 		 
 		 	temper.setMinorTickSpacing(2);
 		    temper.setMajorTickSpacing(10);
@@ -62,14 +77,14 @@ public class SmartGUI extends Frame {
 		    temper.setPaintLabels(true);
 		    temper.setFont(font);
 		    
-		 JSlider wind = new JSlider(JSlider.HORIZONTAL,0,100, 50);
+		 wind = new JSlider(JSlider.HORIZONTAL,0,100, 50);
 			 
 		 	wind.setMinorTickSpacing(2);
 		    wind.setMajorTickSpacing(10);
 		    wind.setPaintTicks(true);
 		    wind.setPaintLabels(true);
 		    wind.setFont(font);
-		    
+		    wind.setEnabled(false);
 		    for (int i=0; i<24; i++)
 			{
 				hour[i]=Integer.toString(i);
@@ -80,15 +95,17 @@ public class SmartGUI extends Frame {
 				minute [i]=Integer.toString(i);
 			}
 		    
-		 JComboBox hourList = new JComboBox(hour);
+		 hourList = new JComboBox(hour);
 		 //frame.add(hourList);
-		 JComboBox minuteList = new JComboBox(minute);
+		 minuteList = new JComboBox(minute);
 		 //frame.add(minuteList);
 		 
-		 JTextArea result = new JTextArea();
-		 result.setColumns(20);
-		 result.setRows(5);
+		 result = new JTextArea(15, 40);
 		 result.setEditable(false);
+		 result.setLineWrap(true);
+		 result.setWrapStyleWord(false);
+		 JScrollPane scrollPane = new JScrollPane(result);
+		 add(scrollPane);
 		 //frame.add(result);
 		 panel.add(windLabel);
 		 panel.add(wind);
@@ -103,7 +120,7 @@ public class SmartGUI extends Frame {
 		 panel.add(result);
 		 frame.add(panel);
 		 frame.setVisible(true);
-		 temper.addChangeListener(new ChangeListener() {
+		 /**temper.addChangeListener(new ChangeListener() {
 					public void stateChanged(ChangeEvent e) {
 							// TODO Auto-generated method stub
 								int currentTemperature;
@@ -115,12 +132,31 @@ public class SmartGUI extends Frame {
 								result.append(announcement + "\n");
 								//temper
 						}
-		 });
+		 });*/
 	}
 	
 	public static void main (String[] args){
 		
 		SmartGUI app = new SmartGUI();
+		int max = 3;
+		int min = -3;
+		int currentWindSpeed, currentTemperature;
+		while(true)
+		{
+			int randomModifier = rng.nextInt(max + 1 -min) + min;
+			currentWindSpeed = wind.getValue();
+			currentWindSpeed += randomModifier;
+			System.out.println(currentWindSpeed);
+			wind.setValue(currentWindSpeed);
+			alarm.setAlarm(alCont.setAlarm(wind.getValue()));
+			blinds.closedBlinds(bCont.setBlinds(wind.getValue()));
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 
